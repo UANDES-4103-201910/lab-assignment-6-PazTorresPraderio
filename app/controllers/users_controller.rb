@@ -45,7 +45,7 @@ class UsersController < ApplicationController
        flash[:notice] = "User Updated"
     else
       flash[:notice] = "User not Updated"
-      render 'edit'
+      redirect_to 'edit'
     end
   end
 
