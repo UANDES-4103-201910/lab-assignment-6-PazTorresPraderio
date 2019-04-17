@@ -25,13 +25,33 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    #complete this method
+    @user = User.create(user_params)
+    if @user.save
+      flash[:notice] = "User created"
+      redirect_to root_url
+    else
+      flash[:notice] = "User not created" 
+      redirect_to root_url
+
+    end
+
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    #complete this method
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+       flash[:notice] = "User Updated"
+    else
+      flash[:notice] = "User not Updated"
+      render 'edit'
+    end
+  end
+
+  def index
+    @users = User.all
+    redirect_to @users
   end
 
   # DELETE /users/1
@@ -40,10 +60,17 @@ class UsersController < ApplicationController
     #complete this method
   end
 
+  def show
+    @user = User.find(params[:id])
+    redirect_to @user
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+      redirect_to @user
+      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
