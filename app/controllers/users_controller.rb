@@ -57,22 +57,21 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    #complete this method
+    User.find(params[:id]).destroy
+    redirect_to '/'
   end
 
   def show
     @user = User.find(params[:id])
     redirect_to @user
+
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
-      redirect_to @user
-      
     end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :last_name, :email, :password, :phone)

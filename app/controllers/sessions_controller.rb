@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 		user = User.find_by(email: params[:session][:email])
 		if !user.nil? and user.authenticate(params[:session][:password]) and user.this_user(params[:session][:user_id])
 			session[:current_user_id] = user.id
-			#cookies.permanent.signed[:user_id] = user.id
+			cookies.permanent.signed[:user_id] = user.id
 			flash[:notice] = "Correct"
 			logger.debug "successfully logged in"
 			redirect_to :controller => 'users', :action => 'show', id: user.id
